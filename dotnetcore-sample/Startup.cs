@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 using System.Reflection;
 using System.IO;
 
+using ClassLibrary1;
+using Microsoft.EntityFrameworkCore;
+
 namespace dotnetcore_sample
 {
     public class Startup
@@ -32,6 +35,9 @@ namespace dotnetcore_sample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TestContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
             // Add framework services.
             services.AddMvc();
         }
